@@ -9,3 +9,8 @@ h3.card-text {
 .rating span {
   margin: 0.1rem;
 }
+
+.product-card:hover {
+  transform: scale(1.05);
+  transition: transform 250ms;
+}
