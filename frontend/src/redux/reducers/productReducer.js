@@ -10,12 +10,12 @@ const productReducers = (state = { products: [] }, action) => {
     case `${GET_PRODUCTS}_FULFILLED`:
       return {
         loading: false,
-        products: action.payload,
+        products: action.payload.data,
       };
     case `${GET_PRODUCTS}_REJECTED`:
       return {
         loading: false,
-        error: action.payload,
+        error: action.payload.message,
       };
     default:
       return state;
