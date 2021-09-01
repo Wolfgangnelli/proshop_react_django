@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Button, Card } from "react-bootstrap";
 import Rating from "../components/Rating";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 // import products from "../assets/products";
-import axios from "axios";
-import { Spinner } from "react-bootstrap";
+import { getProduct } from "../redux/actions/productActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function ProductPage({ match }) {
-  const [product, setProduct] = useState({});
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productDetails);
+  const { product, error, loading } = productList;
 
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.get(`/api/products/${match.params.id}`);
-      setProduct(data);
-    })();
-  }, []);
+    dispatch(getProduct(match.params.id));
+  }, [dispatch, match]);
   // const product = products.find((p) => p._id === match.params.id);
   return (
     <div>
@@ -22,7 +23,20 @@ function ProductPage({ match }) {
         <i className="fas fa-arrow-left"></i>
         <u className="ms-1">Go Back</u>
       </Link>
-      {Object.keys(product).length > 0 ? (
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">
+          <h3 className="text-danger">
+            Sorry, an Error occurs. <i className="fas fa-bug"></i>
+          </h3>
+          <p>({error})</p>
+          <p className="fw-bold fs-2 text-info">
+            Soon we will restore the service. Try later{" "}
+            <i className="fas fa-hand-scissors" style={{ color: "blue" }}></i>
+          </p>
+        </Message>
+      ) : (
         <Row>
           <Col lg={6}>
             <Image src={product.image} alt={product.name} fluid />
@@ -76,8 +90,6 @@ function ProductPage({ match }) {
             </Card>
           </Col>
         </Row>
-      ) : (
-        <Spinner animation="border" />
       )}
     </div>
   );
