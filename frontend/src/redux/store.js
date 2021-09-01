@@ -5,7 +5,12 @@ import storeReducer from "./reducers/index.js";
 import logger from "redux-logger";
 import promise from "redux-promise-middleware";
 
-const initialStore = {};
+const cartItemsFromStorage = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems"))
+  : [];
+const initialStore = {
+  cart: { cartItems: cartItemsFromStorage },
+};
 
 const middleware = [thunk, logger, promise];
 
