@@ -4,13 +4,9 @@ const initialState = { cartItems: [] };
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    /* PENDING */
-    case `${CART_REMOVE_ITEM}_PENDING`:
-      return;
-
     /* FULFILLED */
-    case `${CART_ADD_ITEM}_FULFILLED`:
-      const item = action.payload.data;
+    case `${CART_ADD_ITEM}`:
+      const item = action.payload;
       const existItem = state.cartItems.find(
         (el) => el.product === item.product
       );
@@ -27,15 +23,6 @@ const cartReducer = (state = initialState, action) => {
           cartItems: [...state.cartItems, item],
         };
       }
-    case `${CART_REMOVE_ITEM}_FULFILLED`:
-      return;
-
-    /* REJECTED */
-    case `${CART_ADD_ITEM}_REJECTED`:
-      return;
-    case `${CART_REMOVE_ITEM}_REJECTED`:
-      return;
-
     default:
       return state;
   }

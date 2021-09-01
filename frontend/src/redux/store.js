@@ -12,7 +12,7 @@ const initialStore = {
   cart: { cartItems: cartItemsFromStorage },
 };
 
-const middleware = [thunk, logger, promise];
+const middleware = [thunk, promise, logger];
 
 const store = createStore(
   storeReducer,
