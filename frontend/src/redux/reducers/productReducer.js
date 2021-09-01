@@ -1,25 +1,27 @@
-import { GET_PRODUCTS } from "../actions/actionTypes";
+import { GET_PRODUCT_DETAILS } from "../actions/actionTypes";
 
-const productReducers = (state = { products: [] }, action) => {
-  switch (action.type) {
-    case `${GET_PRODUCTS}_PENDING`:
+const initialState = { product: { reviews: [] } };
+
+const productDetailsReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case `${GET_PRODUCT_DETAILS}_PENDING`:
       return {
         loading: true,
-        products: [],
+        ...state,
       };
-    case `${GET_PRODUCTS}_FULFILLED`:
+    case `${GET_PRODUCT_DETAILS}_FULFILLED`:
       return {
         loading: false,
-        products: action.payload.data,
+        product: payload.data,
       };
-    case `${GET_PRODUCTS}_REJECTED`:
+    case `${GET_PRODUCT_DETAILS}_REJECTED`:
       return {
         loading: false,
-        error: action.payload.message,
+        error: payload.message,
       };
     default:
       return state;
   }
 };
 
-export default productReducers;
+export default productDetailsReducer;
