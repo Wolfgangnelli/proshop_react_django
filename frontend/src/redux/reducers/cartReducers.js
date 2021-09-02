@@ -5,7 +5,7 @@ const initialState = { cartItems: [] };
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     /* FULFILLED */
-    case `${CART_ADD_ITEM}`:
+    case CART_ADD_ITEM:
       const item = action.payload;
       const existItem = state.cartItems.find(
         (el) => el.product === item.product
@@ -23,6 +23,14 @@ const cartReducer = (state = initialState, action) => {
           cartItems: [...state.cartItems, item],
         };
       }
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (item) => item.product !== action.payload
+        ),
+      };
+
     default:
       return state;
   }
