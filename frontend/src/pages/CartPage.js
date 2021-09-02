@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { addToCart } from "../redux/actions/cartActions";
+import { addToCart, removeFromCart } from "../redux/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Row,
@@ -32,7 +32,7 @@ function CartPage({ match, location, history }) {
   }, [productId, qty, dispatch]);
 
   const removeToCartHandler = (product_id) => {
-    console.log("remove: ", product_id);
+    dispatch(removeFromCart(product_id));
   };
 
   const checkoutHandler = () => {
