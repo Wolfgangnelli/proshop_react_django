@@ -81,15 +81,15 @@ const RegisterPage = ({ location, history }) => {
         <Button className="mt-4" variant="primary" type="submit">
           Register
         </Button>
-        <Row className="p-3">
-          <Col>
-            Have an account?{" "}
-            <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
-              Sign In
-            </Link>
-          </Col>
-        </Row>
       </Form>
+      <Row className="p-3">
+        <Col>
+          Have an account?{" "}
+          <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+            Sign In
+          </Link>
+        </Col>
+      </Row>
     </FormContainer>
   );
 };
