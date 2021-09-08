@@ -1,8 +1,12 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../actions/actionTypes";
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+} from "../actions/actionTypes";
 
-const initialState = { cartItems: [] };
+const initialState = { cartItems: [], shippingAddress: {} };
 
-const cartReducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     /* FULFILLED */
     case CART_ADD_ITEM:
@@ -30,10 +34,13 @@ const cartReducer = (state = initialState, action) => {
           (item) => item.product !== action.payload
         ),
       };
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
+      };
 
     default:
       return state;
   }
 };
-
-export default cartReducer;
