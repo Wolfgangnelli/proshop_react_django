@@ -6,6 +6,9 @@ export const GET_PRODUCT_DETAILS = "GET_PRODUCT_DETAILS";
 export const CART_ADD_ITEM = "CART_ADD_ITEM";
 export const CART_REMOVE_ITEM = "CART_REMOVE_ITEM"; //select the word and ctrl + D
 
+/* CART SHIPPING */
+export const CART_SAVE_SHIPPING_ADDRESS = "CART_SAVE_SHIPPING_ADDRESS";
+
 /* USER */
 export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
 export const USER_LOGIN_REQUEST = "USER_LOGIN_REQUEST";

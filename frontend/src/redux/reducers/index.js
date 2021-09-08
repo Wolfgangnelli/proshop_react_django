@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import products from "./productsReducer";
 import product from "./productReducer";
-import cart from "./cartReducers";
+import { cartReducer as cart } from "./cartReducers";
 import {
   userLoginReducer as userLogin,
   userRegisterReducer as userRegister,
