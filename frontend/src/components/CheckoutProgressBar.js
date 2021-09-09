@@ -8,7 +8,9 @@ export const CheckoutProgressBar = ({ step1, step2, step3, step4 }) => {
       <Nav.Item>
         {step1 ? (
           <LinkContainer to="/login">
-            <Nav.Link>Login</Nav.Link>
+            <Nav.Link className="text-decoration-underline fw-bold text-success">
+              Login
+            </Nav.Link>
           </LinkContainer>
         ) : (
           <Nav.Link disabled>Login</Nav.Link>
@@ -17,7 +19,9 @@ export const CheckoutProgressBar = ({ step1, step2, step3, step4 }) => {
       <Nav.Item>
         {step2 ? (
           <LinkContainer to="/shipping">
-            <Nav.Link>Shipping</Nav.Link>
+            <Nav.Link className="text-decoration-underline fw-bold text-success">
+              Shipping
+            </Nav.Link>
           </LinkContainer>
         ) : (
           <Nav.Link disabled>Shipping</Nav.Link>
@@ -26,7 +30,9 @@ export const CheckoutProgressBar = ({ step1, step2, step3, step4 }) => {
       <Nav.Item>
         {step3 ? (
           <LinkContainer to="/payment">
-            <Nav.Link>Payment</Nav.Link>
+            <Nav.Link className="text-decoration-underline fw-bold text-success">
+              Payment
+            </Nav.Link>
           </LinkContainer>
         ) : (
           <Nav.Link disabled>Payment</Nav.Link>
@@ -35,7 +41,9 @@ export const CheckoutProgressBar = ({ step1, step2, step3, step4 }) => {
       <Nav.Item>
         {step4 ? (
           <LinkContainer to="/placeorder">
-            <Nav.Link>Place order</Nav.Link>
+            <Nav.Link className="text-decoration-underline fw-bold text-success">
+              Place order
+            </Nav.Link>
           </LinkContainer>
         ) : (
           <Nav.Link disabled>Place order</Nav.Link>
