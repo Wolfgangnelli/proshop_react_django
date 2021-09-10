@@ -17,7 +17,7 @@ def addOrderItems(request):
     orderItems = data['orderItems']
 
     if orderItems and len(orderItems) == 0:
-        message = {'details': 'No Order Items'}
+        message = {'detail': 'No Order Items'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
     else:
         # 1. Create order
@@ -68,6 +68,6 @@ def getOrderById(request, pk):
             serializer = OrderSerializer(order, many=False)
             return Response(serializer.data)
         else:
-            return Response({'details': 'Not authorized to view this order'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Not authorized to view this order'}, status=status.HTTP_401_UNAUTHORIZED)
     except:
-        return Response({'details': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'detail': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)
