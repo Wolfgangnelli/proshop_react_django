@@ -25,7 +25,7 @@ def addOrderItems(request):
             user = user,
             paymentMethod = data['paymentMethod'],
             taxPrice = data['taxPrice'],
-            shippingPrice = ['shippingPrice'],
+            shippingPrice = data['shippingPrice'],
             totalPrice = data['totalPrice']
         )
         # 2. Create shipping address
