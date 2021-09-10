@@ -4,9 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Message from "../components/Message";
 import { CheckoutProgressBar } from "../components/CheckoutProgressBar";
+import { createOrder } from "../redux/actions/orderActions";
+import { ORDER_CREATE_RESET } from "../redux/actions/actionTypes";
 
-const PlaceOrderPage = () => {
+const PlaceOrderPage = ({ history }) => {
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, error, success, loading } = orderCreate;
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const { cartItems, shippingAddress, paymentMethod } = cart;
   cart.itemsPrice = cartItems
     .reduce((total, item) => total + item.qty * item.price, 0)
@@ -19,8 +24,29 @@ const PlaceOrderPage = () => {
     +cart.taxPrice
   ).toFixed(2);
 
+  if (!paymentMethod || paymentMethod.length === 0) {
+    history.push("/payment");
+  }
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
+    }
+  }, [success, history, order]);
+
   const placeOrder = () => {
-    console.log("Place Order");
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        taxPrice: cart.taxPrice,
+        shippingPrice: cart.shippingPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
   };
 
   return (
@@ -114,6 +140,11 @@ const PlaceOrderPage = () => {
                 <Col>${cart.totalPrice}</Col>
               </Row>
             </ListGroup.Item>
+            {error ? (
+              <ListGroup.Item>
+                <Message variant="danger">{error}</Message>
+              </ListGroup.Item>
+            ) : null}
             <ListGroup.Item>
               <Button
                 type="button"
