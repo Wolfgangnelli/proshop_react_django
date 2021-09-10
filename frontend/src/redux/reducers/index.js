@@ -8,6 +8,7 @@ import {
   userDetailsReducer as userDetails,
   userUpdateProfileReducer as userUpdateProfile,
 } from "./userReducers";
+import { orderCreateReducer as orderCreate } from "./orderReducers";
 
 const reducers = {
   productsList: products,
@@ -17,6 +18,7 @@ const reducers = {
   userRegister,
   userDetails,
   userUpdateProfile,
+  orderCreate,
 };
 
 export default combineReducers(reducers);
