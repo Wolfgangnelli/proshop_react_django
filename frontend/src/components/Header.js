@@ -7,6 +7,7 @@ import { logout } from "../redux/actions/userActions";
 function Header() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const { isAdmin } = userInfo;
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
@@ -49,6 +50,19 @@ function Header() {
                     Login
                   </Nav.Link>
                 </LinkContainer>
+              )}
+              {userInfo && isAdmin && (
+                <NavDropdown title="Admin" id="adminmenu">
+                  <LinkContainer to="/admin/users">
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/productlist">
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/orderlist">
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>
