@@ -53,6 +53,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 };
 
 export const getOrderDetails = (id) => async (dispatch, getState) => {
+  console.log(id);
   try {
     dispatch({
       type: ORDER_DETAILS_REQUEST,
@@ -86,7 +87,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
   }
 };
 
-// paymentResult come from PayPal
+// paymentResult come from PayPal, and send it as a parameter in API call
 export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
   try {
     dispatch({
