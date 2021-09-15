@@ -13,6 +13,7 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
+  MY_ORDERS_LIST_RESET,
 } from "./actionTypes";
 import axios from "axios";
 
@@ -64,6 +65,9 @@ export const logout = () => (dispatch) => {
   });
   dispatch({
     type: USER_DETAILS_RESET,
+  });
+  dispatch({
+    type: MY_ORDERS_LIST_RESET,
   });
 };
 
