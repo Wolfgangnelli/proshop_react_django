@@ -12,6 +12,7 @@ import PlaceOrderPage from "../pages/PlaceOrderPage";
 import OrderPage from "../pages/OrderPage";
 import UserListPage from "../pages/UserListPage";
 import UserEditPage from "../pages/UserEditPage";
+import ProductListPage from "../pages/ProductListPage";
 
 function Routes() {
   return (
@@ -28,6 +29,7 @@ function Routes() {
       <Route path="/order/:id" component={OrderPage} />
       <Route path="/admin/users" component={UserListPage} />
       <Route path="/admin/user/:id/edit" component={UserEditPage} />
+      <Route path="/admin/productlist" component={ProductListPage} />
     </>
   );
 }
