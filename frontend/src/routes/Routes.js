@@ -11,6 +11,7 @@ import PaymentPage from "../pages/PaymentPage";
 import PlaceOrderPage from "../pages/PlaceOrderPage";
 import OrderPage from "../pages/OrderPage";
 import UserListPage from "../pages/UserListPage";
+import UserEditPage from "../pages/UserEditPage";
 
 function Routes() {
   return (
@@ -26,6 +27,7 @@ function Routes() {
       <Route path="/placeorder" component={PlaceOrderPage} />
       <Route path="/order/:id" component={OrderPage} />
       <Route path="/admin/users" component={UserListPage} />
+      <Route path="/admin/user/:id/edit" component={UserEditPage} />
     </>
   );
 }
