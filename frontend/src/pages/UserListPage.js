@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { getUserList } from "../redux/actions/userActions";
+import { getUserList, deleteUser } from "../redux/actions/userActions";
 
 const UserListPage = ({ history }) => {
   const dispatch = useDispatch();
@@ -13,21 +13,31 @@ const UserListPage = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete, message, error: errorDelete } = userDelete;
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(getUserList());
     } else {
       history.push("/login");
     }
-  }, [dispatch, getUserList, userInfo, history]);
+  }, [dispatch, userInfo, history, successDelete]);
 
   const deleteHandler = (id) => {
-    console.log("delete", id);
+    if (window.confirm("Are you sure you wnat to delete this user? ")) {
+      dispatch(deleteUser(id));
+    }
   };
 
   return (
     <div>
       <h1>Users</h1>
+      {successDelete ? (
+        <Message variant="success">{message}</Message>
+      ) : (
+        error && <Message variant="danger">{error}</Message>
+      )}
       {loading ? (
         <Loader />
       ) : error ? (
