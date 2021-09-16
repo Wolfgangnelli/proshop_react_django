@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { addToCart, removeFromCart } from "../redux/actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function CartPage({ match, location, history }) {
+function CartPage({ match, history }) {
   const dispatch = useDispatch();
   let query = useQuery();
   const qty = query.get("qty") ? +query.get("qty") : 1;
