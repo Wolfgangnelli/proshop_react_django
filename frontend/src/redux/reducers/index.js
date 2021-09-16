@@ -9,6 +9,7 @@ import {
   userUpdateProfileReducer as userUpdateProfile,
   userListReducer as userList,
   userDeleteReducer as userDelete,
+  userUpdateReducer as userUpdate,
 } from "./userReducers";
 import {
   orderCreateReducer as orderCreate,
@@ -31,6 +32,7 @@ const reducers = {
   myOrdersList,
   userList,
   userDelete,
+  userUpdate,
 };
 
 export default combineReducers(reducers);
