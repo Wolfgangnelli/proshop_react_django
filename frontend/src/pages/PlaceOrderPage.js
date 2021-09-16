@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import React, { useEffect } from "react";
+import { Button, Row, Col, ListGroup, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Message from "../components/Message";
@@ -9,7 +9,7 @@ import { ORDER_CREATE_RESET } from "../redux/actions/actionTypes";
 
 const PlaceOrderPage = ({ history }) => {
   const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, error, success, loading } = orderCreate;
+  const { order, error, success } = orderCreate;
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const { cartItems, shippingAddress, paymentMethod } = cart;
@@ -33,7 +33,7 @@ const PlaceOrderPage = ({ history }) => {
       history.push(`/order/${order._id}`);
       dispatch({ type: ORDER_CREATE_RESET });
     }
-  }, [success, history, order]);
+  }, [success, history, order, dispatch]);
 
   const placeOrder = () => {
     dispatch(
@@ -75,7 +75,7 @@ const PlaceOrderPage = ({ history }) => {
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Order Items </h2>
-              {cartItems.length == 0 ? (
+              {cartItems.length === 0 ? (
                 <Message variant="info">Your cart is empty</Message>
               ) : (
                 <ListGroup variant="flush">

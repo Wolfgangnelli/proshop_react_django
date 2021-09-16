@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Card,
-  ListGroupItem,
-} from "react-bootstrap";
+import { Row, Col, ListGroup, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Message from "../components/Message";
@@ -110,7 +102,7 @@ const OrderPage = ({ match }) => {
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Order Items </h2>
-              {order.orderItems.length == 0 ? (
+              {order.orderItems.length === 0 ? (
                 <Message variant="info">Order is empty</Message>
               ) : (
                 <ListGroup variant="flush">
