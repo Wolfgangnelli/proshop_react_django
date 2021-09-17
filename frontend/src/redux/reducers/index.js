@@ -1,6 +1,9 @@
 import { combineReducers } from "redux";
 import products from "./productsReducer";
-import { productDetailsReducer } from "./productReducer";
+import {
+  productDetailsReducer,
+  productDeleteReducer as productDelete,
+} from "./productReducer";
 import { cartReducer as cart } from "./cartReducers";
 import {
   userLoginReducer as userLogin,
@@ -33,6 +36,7 @@ const reducers = {
   userList,
   userDelete,
   userUpdate,
+  productDelete,
 };
 
 export default combineReducers(reducers);
