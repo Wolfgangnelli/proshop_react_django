@@ -4,7 +4,8 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { getProducts } from "../redux/actions/productActions";
+import { getProducts, deleteProduct } from "../redux/actions/productActions";
+import { PRODUCT_DELETE_RESET } from "../redux/actions/actionTypes";
 
 const ProductListPage = ({ history, match }) => {
   const dispatch = useDispatch();
@@ -12,18 +13,28 @@ const ProductListPage = ({ history, match }) => {
   const { loading, products, error } = productsList;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    success: successDelete,
+    error: errorDelete,
+    message: messageDelete,
+  } = productDelete;
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(getProducts());
+      if (successDelete || errorDelete) {
+        dispatch({ type: PRODUCT_DELETE_RESET });
+      }
     } else {
       history.push("/login");
     }
-  }, [dispatch, userInfo, history]);
+  }, [dispatch, userInfo, history, successDelete]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are you sure you wnat to delete this products? ")) {
-      // delete products
+    if (window.confirm("Are you sure you want to delete this products? ")) {
+      dispatch(deleteProduct(id));
     }
   };
 
@@ -42,7 +53,9 @@ const ProductListPage = ({ history, match }) => {
           </Button>
         </Col>
       </Row>
-
+      {loadingDelete && <Loader />}
+      {successDelete && <Message variant="success">{messageDelete}</Message>}
+      {errorDelete && <Message variant="danger">{errorDelete}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
