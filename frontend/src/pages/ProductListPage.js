@@ -35,6 +35,7 @@ const ProductListPage = ({ history, match }) => {
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
+
     if (!userInfo.isAdmin) {
       history.push("/login");
     }
@@ -106,7 +107,7 @@ const ProductListPage = ({ history, match }) => {
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
                 <td className="d-flex justify-content-evenly">
-                  <LinkContainer to={`/admin/product/${product._id}/`}>
+                  <LinkContainer to={`/admin/product/${product._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <i className="fas fa-edit"></i>
                     </Button>
