@@ -1,5 +1,7 @@
 import {
-  GET_PRODUCT_DETAILS,
+  PRODUCT_DETAILS_REQUEST,
+  PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_DETAILS_FAIL,
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
@@ -21,20 +23,20 @@ export const productDetailsReducer = (
   { type, payload }
 ) => {
   switch (type) {
-    case `${GET_PRODUCT_DETAILS}_PENDING`:
+    case PRODUCT_DETAILS_REQUEST:
       return {
         loading: true,
         ...state,
       };
-    case `${GET_PRODUCT_DETAILS}_FULFILLED`:
+    case PRODUCT_DETAILS_SUCCESS:
       return {
         loading: false,
-        product: payload.data,
+        product: payload,
       };
-    case `${GET_PRODUCT_DETAILS}_REJECTED`:
+    case PRODUCT_DETAILS_FAIL:
       return {
         loading: false,
-        error: payload.message,
+        error: payload,
       };
     default:
       return state;
