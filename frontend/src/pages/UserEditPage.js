@@ -39,7 +39,7 @@ const EditUserPage = ({ match, history }) => {
         setIsAdmin(user.isAdmin);
       }
     }
-  }, [user, userID, history]);
+  }, [user, userID, history, dispatch, successUpdate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
