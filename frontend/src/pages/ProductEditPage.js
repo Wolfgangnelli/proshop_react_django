@@ -4,8 +4,9 @@ import { Form, Button } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct } from "../redux/actions/productActions";
+import { getProduct, updateProduct } from "../redux/actions/productActions";
 import { FormContainer } from "../components/FormContainer";
+import { PRODUCT_UPDATE_RESET } from "../redux/actions/actionTypes";
 
 const ProductEditPage = ({ match, history }) => {
   const [name, setName] = useState("");
@@ -26,26 +27,56 @@ const ProductEditPage = ({ match, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    error: errorUpdate,
+    loading: loadingUpdate,
+    success: successUpdate,
+  } = productUpdate;
+
   useEffect(() => {
     if (!userInfo.isAdmin) {
       history.push("/login");
     }
-    if (!product.name || product._id !== +productID) {
-      dispatch(getProduct(productID));
+
+    if (successUpdate) {
+      dispatch({
+        type: PRODUCT_UPDATE_RESET,
+      });
+      history.push("/admin/productlist");
     } else {
-      setName(product.name);
-      setBrand(product.brand);
-      setCategory(product.category);
-      setDescription(product.description);
-      setPrice(product.price);
-      setCountInStock(product.countInStock);
-      setImage(product.image);
+      if (!product.name || product._id !== +productID) {
+        dispatch(getProduct(productID));
+      } else {
+        setName(product.name);
+        setBrand(product.brand);
+        setCategory(product.category);
+        setDescription(product.description);
+        setPrice(product.price);
+        setCountInStock(product.countInStock);
+        setImage(product.image);
+      }
     }
-  }, [userInfo, productID, product, history, dispatch]);
+  }, [userInfo, productID, product, history, dispatch, successUpdate]);
+
+  const formattingPrice = (v) => {
+    return v.toFixed(2);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // Update product
+    dispatch(
+      updateProduct({
+        _id: productID,
+        name,
+        brand,
+        category,
+        description,
+        price,
+        countInStock,
+        image,
+      })
+    );
   };
   return (
     <div>
@@ -55,6 +86,8 @@ const ProductEditPage = ({ match, history }) => {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
@@ -103,7 +136,7 @@ const ProductEditPage = ({ match, history }) => {
                 type="number"
                 placeholder="Enter price"
                 value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => setPrice(formattingPrice(+e.target.value))}
               />
             </Form.Group>
             <Form.Group className="my-2" controlId="countInStock">
