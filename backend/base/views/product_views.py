@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from base.models import Product
 from base.serializers import ProductSerializer
 from rest_framework import serializers, status
+from decimal import Decimal
 
 
 
@@ -52,14 +53,14 @@ def updateProduct(request, pk):
 
     product = Product.objects.get(_id=pk)
 
-    product.name = data['name'],
-    product.brand = data['brand'],
-    product.category = data['category'],
-    product.description = data['description'],
-    product.price = data['price'],
+    product.name = data['name']
+    product.brand = data['brand']
+    product.category = data['category']
+    product.description = data['description']
+    product.price = data['price']
     product.countInStock = data['countInStock']
 
     product.save()
     serializer = ProductSerializer(product, many=False)
-    Response(serializer.data)
+    return Response(serializer.data)
 
