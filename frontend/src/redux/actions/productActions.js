@@ -1,6 +1,5 @@
 import {
   GET_PRODUCTS,
-  GET_PRODUCT_DETAILS,
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_SUCCESS,
@@ -10,6 +9,9 @@ import {
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_FAIL,
+  PRODUCT_DETAILS_REQUEST,
+  PRODUCT_DETAILS_SUCCESS,
+  PRODUCT_DETAILS_FAIL,
 } from "./actionTypes";
 import axios from "axios";
 
@@ -18,10 +20,28 @@ export const getProducts = () => ({
   payload: axios.get(`/api/products/`),
 });
 
-export const getProduct = (id) => ({
-  type: GET_PRODUCT_DETAILS,
-  payload: axios.get(`/api/products/${id}`),
-});
+export const getProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: PRODUCT_DETAILS_REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/products/${id}/`);
+
+    dispatch({
+      type: PRODUCT_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
 
 export const deleteProduct = (id) => async (dispatch, getState) => {
   try {
@@ -119,12 +139,10 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       payload: data,
     });
 
-    getProduct(product._id);
-
-    /*     dispatch({
-      type: GET_PRODUCT_DETAILS,
+    dispatch({
+      type: PRODUCT_DETAILS_SUCCESS,
       payload: data,
-    }); */
+    });
   } catch (error) {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
