@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProduct, updateProduct } from "../redux/actions/productActions";
 import { FormContainer } from "../components/FormContainer";
 import { PRODUCT_UPDATE_RESET } from "../redux/actions/actionTypes";
+import axios from "axios";
 
 const ProductEditPage = ({ match, history }) => {
   const [name, setName] = useState("");
@@ -16,6 +17,7 @@ const ProductEditPage = ({ match, history }) => {
   const [price, setPrice] = useState(0);
   const [countInStock, setCountInStock] = useState(0);
   const [image, setImage] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const productID = match.params.id;
 
@@ -78,6 +80,36 @@ const ProductEditPage = ({ match, history }) => {
       })
     );
   };
+
+  const uploadFileHandler = async (e) => {
+    console.log("File is uploading");
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("image", file);
+    formData.append("product_id", productID);
+
+    setUploading(true);
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const { data } = await axios.post(
+        "/api/products/upload/",
+        formData,
+        config
+      );
+
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      setUploading(false);
+    }
+  };
+
   return (
     <div>
       <Link to="/admin/productlist">
@@ -156,6 +188,13 @@ const ProductEditPage = ({ match, history }) => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               />
+              <Form.File
+                id="image-file"
+                label="Choose File"
+                custom
+                onChange={uploadFileHandler}
+              />
+              {uploading && <Loader />}
             </Form.Group>
             <Button className="mt-4" variant="primary" type="submit">
               Update
