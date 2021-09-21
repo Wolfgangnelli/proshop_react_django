@@ -22,27 +22,32 @@ import {
   orderPayReducer as orderPay,
   myOrdersListReducer as myOrdersList,
   orderListReducer as orderList,
+  orderDeliverReducer as orderDeliver,
 } from "./orderReducers";
 
 const reducers = {
   productsList: products,
   productDetails: productDetailsReducer,
   cart,
+
   userLogin,
   userRegister,
   userDetails,
   userUpdateProfile,
+  userList,
+  userDelete,
+  userUpdate,
+
+  productDelete,
+  productCreate,
+  productUpdate,
+
   orderCreate,
   orderDetails,
   orderPay,
   myOrdersList,
-  userList,
-  userDelete,
-  userUpdate,
-  productDelete,
-  productCreate,
-  productUpdate,
   orderList,
+  orderDeliver,
 };
 
 export default combineReducers(reducers);
