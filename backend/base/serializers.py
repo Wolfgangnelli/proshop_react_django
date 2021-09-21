@@ -1,14 +1,24 @@
-from django.db.models import fields
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Product, Order, OrderItem, ShippingAddress
+from .models import Product, Order, OrderItem, Review, ShippingAddress
 from rest_framework_simplejwt.tokens import RefreshToken
 
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
 class ProductSerializer(serializers.ModelSerializer):
+    reviews = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Product #Model the I want serialize
         fields = '__all__'  # The fields that i want to actually render out. ['name', 'price', ...]
 
+    def get_reviews(self, obj):
+        reviews = obj.review_set.all()
+        serializer = ReviewSerializer(reviews, many=True)
+        return serializer.data
 
 class UserSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField(read_only=True)
