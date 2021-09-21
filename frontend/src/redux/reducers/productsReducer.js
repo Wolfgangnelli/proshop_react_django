@@ -21,5 +21,4 @@ const productsReducers = (state = { products: [] }, action) => {
       return state;
   }
 };
-
 export default productsReducers;
