@@ -5,6 +5,7 @@ import {
   productDeleteReducer as productDelete,
   productCreateReducer as productCreate,
   productUpdateReducer as productUpdate,
+  productCreateReviewReducer as productCreateReview,
 } from "./productReducer";
 import { cartReducer as cart } from "./cartReducers";
 import {
@@ -22,27 +23,33 @@ import {
   orderPayReducer as orderPay,
   myOrdersListReducer as myOrdersList,
   orderListReducer as orderList,
+  orderDeliverReducer as orderDeliver,
 } from "./orderReducers";
 
 const reducers = {
   productsList: products,
   productDetails: productDetailsReducer,
   cart,
+
   userLogin,
   userRegister,
   userDetails,
   userUpdateProfile,
+  userList,
+  userDelete,
+  userUpdate,
+
+  productDelete,
+  productCreate,
+  productUpdate,
+  productCreateReview,
+
   orderCreate,
   orderDetails,
   orderPay,
   myOrdersList,
-  userList,
-  userDelete,
-  userUpdate,
-  productDelete,
-  productCreate,
-  productUpdate,
   orderList,
+  orderDeliver,
 };
 
 export default combineReducers(reducers);
