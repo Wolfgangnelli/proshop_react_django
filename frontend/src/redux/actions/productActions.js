@@ -18,9 +18,9 @@ import {
 } from "./actionTypes";
 import axios from "axios";
 
-export const getProducts = () => ({
+export const getProducts = (keyword = "") => ({
   type: GET_PRODUCTS,
-  payload: axios.get(`/api/products/`),
+  payload: axios.get(`/api/products${keyword}`),
 });
 
 export const getProduct = (id) => async (dispatch) => {
