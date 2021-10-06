@@ -10,7 +10,9 @@ const productsReducers = (state = { products: [] }, action) => {
     case `${GET_PRODUCTS}_FULFILLED`:
       return {
         loading: false,
-        products: action.payload.data,
+        products: action.payload.data.products,
+        page: action.payload.data.page,
+        pages: action.payload.data.pages,
       };
     case `${GET_PRODUCTS}_REJECTED`:
       return {
