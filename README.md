@@ -4,7 +4,7 @@ Build an eCommerce platform from the ground up with React, Redux, Bootstrap, Dja
 
 ## Features
 
-In this project i will build a completely customized eCommerce / shopping cart application from scratch using Django & React, with the following functionality...
+In this project i will build a completely customized eCommerce / shopping cart application from scratch using Django & React, with the following functionality:
 
 - 1 - Full featured shopping cart
 - 2 - Product reviews and ratings
